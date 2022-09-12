@@ -1,7 +1,5 @@
 import 'package:facebook_lite_ui_app/models/post_model.dart';
-import 'package:facebook_lite_ui_app/utils/all_text.dart';
 import 'package:facebook_lite_ui_app/utils/app_icons.dart';
-import 'package:facebook_lite_ui_app/utils/app_images.dart';
 import 'package:facebook_lite_ui_app/widgets/reuseble_text.dart';
 import 'package:flutter/material.dart';
 
