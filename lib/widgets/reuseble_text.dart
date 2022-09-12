@@ -1,4 +1,4 @@
-import 'package:facebook_lite_ui_app/widgets/app_colors.dart';
+import 'package:facebook_lite_ui_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ReusebleText extends StatelessWidget {
