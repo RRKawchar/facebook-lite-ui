@@ -20,7 +20,7 @@ class PostBar extends StatelessWidget {
               backgroundImage: AssetImage(AppImages.myPic),
             )
         ),
-        ReusebleText(text: "What's on your mind?",color: Colors.grey.withOpacity(0.6),size: 22,fontWeight: FontWeight.bold,),
+        ReusebleText(text: "What's on your mind?",color: Theme.of(context).brightness==Brightness.light?Colors.grey.withOpacity(0.9):Colors.white.withOpacity(0.8),size: 22,fontWeight: FontWeight.bold,),
         Container(
           height: 60,
           child: VerticalDivider(
@@ -30,7 +30,7 @@ class PostBar extends StatelessWidget {
         Column(
           children: [
             IconButton(onPressed: (){}, icon: Icon(Icons.photo_album_outlined)),
-            ReusebleText(text: "Photo")
+            ReusebleText(text: "Photo",color: Theme.of(context).brightness==Brightness.light?Colors.black.withOpacity(0.8):Colors.white.withOpacity(0.8))
           ],
         )
       ],

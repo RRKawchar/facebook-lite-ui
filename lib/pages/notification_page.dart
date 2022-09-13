@@ -13,6 +13,7 @@ class NotificationPage extends StatefulWidget {
 class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
+    final  themevalue=Theme.of(context).brightness==Brightness.light?Colors.black.withOpacity(0.8):Colors.white.withOpacity(0.8);
     return Column(
       children: [
         Container(
@@ -20,7 +21,7 @@ class _NotificationPageState extends State<NotificationPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ReusebleText(text: "Notifications",size: 30,),
+              ReusebleText(text: "Notifications",size: 30,color:themevalue ,),
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
@@ -52,9 +53,9 @@ class _NotificationPageState extends State<NotificationPage> {
                         backgroundImage: AssetImage(messageData[index].avatar),
                       ),
                       title: ReusebleText(
-                        text: messageData[index].name,
+                        text: messageData[index].name,color: themevalue,
                       ),
-                      subtitle: ReusebleText(text: messageData[index].time,size: 12,),
+                      subtitle: ReusebleText(text: messageData[index].time,size: 12,color: themevalue,),
                       trailing: Icon(Icons.more_vert_outlined,size: 25,),
                     )
                   ],

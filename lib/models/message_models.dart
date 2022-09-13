@@ -21,7 +21,7 @@ class MessageModels{
   static Icon statusOffline=Icon(
     Icons.phone_android_outlined,
     size: 20,
-    color: Colors.black38,
+
   );
 
 

@@ -13,6 +13,8 @@ class MessagePage extends StatefulWidget {
 class _MessagePageState extends State<MessagePage> {
   @override
   Widget build(BuildContext context) {
+    final  themevalue=Theme.of(context).brightness==Brightness.light?Colors.black.withOpacity(0.8):Colors.white.withOpacity(0.8);
+    final  themevalue2=Theme.of(context).brightness==Brightness.light?Colors.black.withOpacity(0.8):Colors.white.withOpacity(0.8);
     return Column(
       children: [
         Container(
@@ -20,7 +22,7 @@ class _MessagePageState extends State<MessagePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ReusebleText(text: "Message",size: 22,color: AppColors.colorBlack,),
+              ReusebleText(text: "Message",size: 22,color: themevalue,),
               Row(
                 children: [
                   MessageContainer(icon: Icons.message_outlined, color: AppColors.colorGreen, Onpressed: (){}),
@@ -44,12 +46,12 @@ class _MessagePageState extends State<MessagePage> {
                           backgroundColor: AppColors.colorBlue.withOpacity(0.4),
                           backgroundImage: AssetImage(messageData[index].avatar),
                         ),
-                        title: ReusebleText(text: messageData[index].name,size: 20,),
-                        subtitle: ReusebleText(text: messageData[index].time,size: 12,),
+                        title: ReusebleText(text: messageData[index].name,size: 20,color: themevalue,),
+                        subtitle: ReusebleText(text: messageData[index].time,size: 12,color: themevalue,),
                         trailing: IconButton(
                           onPressed: (){
                           },
-                          icon: messageData[index].status,
+                          icon: messageData[index].status,color: themevalue2,
                         ),
                       ),
 
@@ -69,7 +71,6 @@ class MessageContainer extends StatelessWidget {
   final VoidCallback Onpressed;
   final Color color;
   MessageContainer({Key? key,required this.icon,required this.color,required this.Onpressed}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -8,6 +8,7 @@ class Post extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final  themevalue=Theme.of(context).brightness==Brightness.light?Colors.black.withOpacity(0.8):Colors.white.withOpacity(0.8);
     return Container(
       child: Column(
         children: [
@@ -26,14 +27,14 @@ class Post extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ReusebleText(
-                        text: postData[i].name,
+                        text: postData[i].name,color:themevalue,
                         size: 25,
                         fontWeight: FontWeight.bold,
                       ),
                       Wrap(
                         spacing: 10.0,
                         children: [
-                          ReusebleText(text: postData[i].time),
+                          ReusebleText(text: postData[i].time,color: themevalue),
                           const Icon(
                             Icons.public,
                             size: 18,
@@ -58,7 +59,7 @@ class Post extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ReusebleText(
-                      text: postData[i].postTitle,
+                      text: postData[i].postTitle,color: themevalue,
                       size: 20,
                     ),
                   ),
@@ -85,7 +86,7 @@ class Post extends StatelessWidget {
                       icon: AppIcons.likeIcon,
                     ),
                     ReusebleText(
-                      text: postData[i].like,
+                      text: postData[i].like,color: themevalue,
                       size: 14,
                       fontWeight: FontWeight.bold,
                     )
@@ -98,7 +99,7 @@ class Post extends StatelessWidget {
                       icon: AppIcons.messageIcon,
                     ),
                     ReusebleText(
-                      text: postData[i].comment,
+                      text: postData[i].comment,color: themevalue,
                       size: 14,
                       fontWeight: FontWeight.bold,
                     )

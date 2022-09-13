@@ -49,12 +49,12 @@ class StoryBar extends StatelessWidget {
                           ),
                         ),
 
-                        ReusebleText(text: "Add to Story",size: 22,fontWeight: FontWeight.bold,)
+                        ReusebleText(text: "Add to Story",size: 22,fontWeight: FontWeight.bold,color: Theme.of(context).brightness==Brightness.light?Colors.black.withOpacity(0.8):Colors.white.withOpacity(0.8))
                       ],
                     ),
                   ),
                   Positioned(
-                   bottom: 70,
+                   bottom: 62,
                       left: 45,
                       child: IconButton(
                         onPressed: (){},

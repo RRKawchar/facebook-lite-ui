@@ -2,7 +2,9 @@ import 'package:facebook_lite_ui_app/models/video_model.dart';
 import 'package:facebook_lite_ui_app/utils/app_icons.dart';
 import 'package:facebook_lite_ui_app/widgets/reuseble_text.dart';
 import 'package:flutter/material.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+
 
 
 class VideoPage extends StatefulWidget {
@@ -14,8 +16,26 @@ class VideoPage extends StatefulWidget {
 
 class _VideoPageState extends State<VideoPage> {
   bool isSwitched=false;
+
+  YoutubePlayerController? _controller;
+  void runYoutubePlayerController(){
+    _controller=YoutubePlayerController(initialVideoId: YoutubePlayer.convertUrlToId(
+        ""
+    ).toString(),
+        flags: YoutubePlayerFlags(
+          enableCaption: false,
+          isLive: false,
+          autoPlay: true,
+          mute: false,
+        )
+    );
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    final  themevalue=Theme.of(context).brightness==Brightness.light?Colors.black.withOpacity(0.8):Colors.white.withOpacity(0.8);
+    final  themevalue2=Theme.of(context).brightness==Brightness.light?Colors.blueAccent:Colors.blue;
     return Column(
       children: [
         Container(
@@ -23,7 +43,7 @@ class _VideoPageState extends State<VideoPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ReusebleText(text: "Videos",size: 30,),
+              ReusebleText(text: "Videos",size: 30,color:themevalue,),
               Container(
                 child: Tooltip(
                   message: "Play Video Automatically",
@@ -47,6 +67,7 @@ class _VideoPageState extends State<VideoPage> {
         Expanded(
 
             child: ListView.builder(
+              scrollDirection: Axis.vertical,
                 itemCount: videoData.length,
                 itemBuilder: (context,index){
                   return Column(
@@ -70,17 +91,17 @@ class _VideoPageState extends State<VideoPage> {
                                 children: [
                                   Row(
                                     children: [
-                                      ReusebleText(text: videoData[index].name,size: 20,color: Colors.black,fontWeight: FontWeight.bold,),
+                                      Expanded(child: ReusebleText(text: videoData[index].name,size: 20,color: themevalue,fontWeight: FontWeight.bold,)),
                                       TextButton(
                                           onPressed: (){},
-                                          child: ReusebleText(text: "Follow",size: 20,fontWeight: FontWeight.bold,color: Colors.blueAccent,)
+                                          child: ReusebleText(text: "Follow",size: 20,fontWeight: FontWeight.bold,color:themevalue2,)
                                       )
                                     ],
                                   ),
                                   Wrap(
                                     spacing: 10,
                                     children: [
-                                      ReusebleText(text: videoData[index].time,size: 18,),
+                                      ReusebleText(text: videoData[index].time,size: 18,color: themevalue,),
                                       Icon(Icons.public)
                                     ],
                                   )
@@ -99,28 +120,49 @@ class _VideoPageState extends State<VideoPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                             YoutubePlayerControllerProvider(
+                            YoutubePlayerBuilder(
+                                player: YoutubePlayer(
+                                  controller:YoutubePlayerController(
+                                    initialVideoId: videoData[index].videoPostLink ?? "",
+                                      flags: YoutubePlayerFlags(
+                                        enableCaption: false,
+                                        isLive: false,
+                                        autoPlay: false,
+                                        mute: false,
+                                      )
 
-                                 controller: YoutubePlayerController(
+                                  ),
+                                ),
+                                builder: (context,player){
 
-                                   params: YoutubePlayerParams(
-                                     mute: false,
-                                     autoPlay: false,
-                                     showControls: true,
-                                     showFullscreenButton: true,
+                                  return Container(
+                                    child: player,
+                                  );
+                                }
+                            ),
 
-                                   ),
-
-
-                                 ),
-                                 child: YoutubePlayerIFrame(
-                                   aspectRatio: 16/9,
-                                 )
-                             ),
+                             // YoutubePlayerControllerProvider(
+                             //
+                             //     controller: YoutubePlayerController(
+                             //          ,
+                             //       params: YoutubePlayerParams(
+                             //         mute: false,
+                             //         autoPlay: false,
+                             //         showControls: true,
+                             //         showFullscreenButton: true,
+                             //
+                             //       ),
+                             //
+                             //
+                             //     ),
+                             //     child: YoutubePlayerIFrame(
+                             //       aspectRatio: 16/9,
+                             //     )
+                             // ),
                             Padding(
 
                                 padding: EdgeInsets.all(8.0),
-                              child: ReusebleText(text: videoData[index].videoPostTitle,size: 18,color: Colors.black,),
+                              child: ReusebleText(text: videoData[index].videoPostTitle,size: 18,color: themevalue,),
                             )
                           ],
                         ),
@@ -132,14 +174,14 @@ class _VideoPageState extends State<VideoPage> {
                             children: [
                               IconButton(onPressed: videoData[index].likeOnpressed,
                                   icon: AppIcons.likeIcon),
-                              ReusebleText(text: "12")
+                              ReusebleText(text: "12",color: themevalue,)
                             ],
                           ),
                           Row(
                             children: [
                               IconButton(onPressed: videoData[index].commentOnPressed,
                                   icon: AppIcons.messageIcon),
-                              ReusebleText(text: "134")
+                              ReusebleText(text: "134",color: themevalue,)
                             ],
                           ),
                           Row(
@@ -151,10 +193,10 @@ class _VideoPageState extends State<VideoPage> {
                           ),
 
                         ],
-                      )
+                      ),
+                      Divider(thickness: 4,)
                     ],
                   );
-
                 }
 
             )

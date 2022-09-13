@@ -26,7 +26,6 @@ class _MyTabMainState extends State<MyTabMain>
     const Tab(
       icon:  Icon(
         Icons.home_outlined,
-        color: AppColors.colorBlack,
       ),
     ),
     const Tab(
@@ -45,8 +44,8 @@ class _MyTabMainState extends State<MyTabMain>
         ),
       ),
     ),
-    const Tab(
-      icon:  Icon(Icons.video_library_outlined, color: AppColors.colorBlack),
+   const Tab(
+      icon:  Icon(Icons.video_library_outlined),
     ),
     const Tab(
       icon: Icon(Icons.shopping_bag_outlined, color: AppColors.colorBlack),
@@ -62,9 +61,32 @@ class _MyTabMainState extends State<MyTabMain>
     const MarketPage()
   ];
 
+  DateTime pre_backpress = DateTime.now();
+
   Future<bool> _onWillPop() async {
+
     if (_tabController!.index == 0) {
-      await SystemNavigator.pop();
+
+      final timegap = DateTime.now().difference(pre_backpress);
+      final cantExit = timegap >= const Duration(seconds: 2);
+      pre_backpress = DateTime.now();
+
+      if (cantExit) {
+        const snack =  SnackBar(
+          content:
+           Text("Press back again to exit"),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 2),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snack);
+        return false;
+
+      } else {
+        await SystemNavigator.pop();
+        return true;
+      }
+
+
     }
 
     Future.delayed(const Duration(milliseconds: 200), () {
@@ -79,7 +101,7 @@ class _MyTabMainState extends State<MyTabMain>
   @override
   void initState() {
     _tabController =
-        TabController(length: toptabs.length, initialIndex: 4, vsync: this);
+        TabController(length: toptabs.length, initialIndex: 5, vsync: this);
     super.initState();
   }
 
@@ -90,7 +112,7 @@ class _MyTabMainState extends State<MyTabMain>
       child: Scaffold(
         key: _scaffolKey,
         appBar: AppBar(
-          backgroundColor: AppColors.backgroundColor,
+          backgroundColor: Colors.transparent,
           title: ReusebleText(
             text: AllText.facebookText,
             color: AppColors.colorBlue.withOpacity(0.8),
@@ -128,13 +150,41 @@ class _MyTabMainState extends State<MyTabMain>
           ],
           bottom: TabBar(
             controller: _tabController,
-            indicatorColor: AppColors.colorBlack,
+            indicatorColor: Theme.of(context).brightness==Brightness.light?Colors.blueAccent:Colors.blueAccent,
             indicatorSize: TabBarIndicatorSize.tab,
-            tabs: toptabs,
+            tabs: [
+               Tab(
+                icon:  Icon(
+                  Icons.home_outlined,color: Theme.of(context).brightness==Brightness.light?Colors.black.withOpacity(0.8):Colors.white,
+                ),
+              ),
+               Tab(
+                icon:  Icon(Icons.people_outlined, color: Theme.of(context).brightness==Brightness.light?Colors.black.withOpacity(0.8):Colors.white,),
+              ),
+               Tab(
+                icon:  Icon(Icons.message_outlined, color: Theme.of(context).brightness==Brightness.light?Colors.black.withOpacity(0.8):Colors.white,),
+              ),
+              Tab(
+                icon: Badge(
+                  position: BadgePosition.topEnd(top: -20,end: -5),
+                  badgeContent: ReusebleText(text: "3",color: Colors.white,size: 16,),
+                  child: Icon(
+                    Icons.notifications_outlined,
+                      color: Theme.of(context).brightness==Brightness.light?Colors.black.withOpacity(0.8):Colors.white,
+                  ),
+                ),
+              ),
+               Tab(
+                icon:  Icon(Icons.video_library_outlined,color: Theme.of(context).brightness==Brightness.light?Colors.black.withOpacity(0.8):Colors.white,),
+              ),
+               Tab(
+                icon: Icon(Icons.shopping_bag_outlined, color: Theme.of(context).brightness==Brightness.light?Colors.black.withOpacity(0.8):Colors.white,),
+              ),
+            ],
           ),
         ),
         endDrawer: Container(
-          width: MediaQuery.of(context).size.width * 0.9,
+          width: MediaQuery.of(context).size.width * 1.0,
           child: const MyDrawer(),
         ),
         body: TabBarView(controller: _tabController, children: pages),

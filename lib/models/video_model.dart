@@ -1,5 +1,5 @@
-import 'dart:html';
 
+import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoModel{
@@ -33,13 +33,13 @@ List<VideoModel> videoData=[
 
   VideoModel(
       avatarOnPressed: (){},
-      avatarImage: "assets/songImages/banglaMashupImage.png",
+      avatarImage: "assets/image/myPhoto.png",
       name: "Riyazur Rohman Kawchar",
       time: "Just Now",
       moreOnPressed: (){},
       videoPostTitle: "The Bengali Breakup Mashup Remix (2018) | All-Time Hit Songs | Official's Video Song",
       videoPostLink: YoutubePlayer.convertUrlToId(
-        "https://www.youtube.com/watch?v=BsVn20j0mCI"
+        "https://youtu.be/BsVn20j0mCI"
       ),
       likeOnpressed: (){print("Liked clicked");},
       commentOnPressed: (){print("Comment clicked");},
@@ -47,7 +47,7 @@ List<VideoModel> videoData=[
   ),
   VideoModel(
       avatarOnPressed: (){},
-      avatarImage: "assets/songImages/banglaSongImage.png",
+      avatarImage: "assets/songImages/ajmir.jpg",
       name: "Md Ajmir Hossain",
       time: "2 days ago",
       moreOnPressed: (){},
@@ -61,7 +61,7 @@ List<VideoModel> videoData=[
   ),
   VideoModel(
       avatarOnPressed: (){},
-      avatarImage: "assets/songImages/hindiImage1.png",
+      avatarImage: "assets/songImages/tanvir.png",
       name: "Md Tanvir ",
       time: "3 days ago",
       moreOnPressed: (){},
@@ -75,7 +75,7 @@ List<VideoModel> videoData=[
   ),
   VideoModel(
       avatarOnPressed: (){},
-      avatarImage: "assets/songImages/hindiImage2.png",
+      avatarImage: "assets/songImages/rifat.png",
       name: "Md Rifat",
       time: "15 days ago",
       moreOnPressed: (){},
@@ -89,7 +89,7 @@ List<VideoModel> videoData=[
   ),
   VideoModel(
       avatarOnPressed: (){},
-      avatarImage: "assets/songImages/hindiImage3.png",
+      avatarImage: "assets/songImages/riaz.png",
       name: "Riaz uddin Ovi",
       time: "Just Now",
       moreOnPressed: (){},
