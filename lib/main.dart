@@ -1,10 +1,14 @@
 import 'package:facebook_lite_ui_app/main_screen/my_tab_main.dart';
 import 'package:facebook_lite_ui_app/provider/dart_theme_provider.dart';
 import 'package:facebook_lite_ui_app/utils/theme_data.dart';
+import 'package:facebook_lite_ui_app/widgets/home/post.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   runApp( MyApp());
 }
 

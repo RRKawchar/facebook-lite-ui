@@ -11,6 +11,7 @@ import 'package:facebook_lite_ui_app/widgets/home/my_drawer.dart';
 import 'package:facebook_lite_ui_app/widgets/reuseble_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class MyTabMain extends StatefulWidget {
   const MyTabMain({Key? key}) : super(key: key);
@@ -22,36 +23,6 @@ class MyTabMain extends StatefulWidget {
 class _MyTabMainState extends State<MyTabMain>
     with SingleTickerProviderStateMixin {
   TabController? _tabController;
-  var toptabs = [
-    const Tab(
-      icon:  Icon(
-        Icons.home_outlined,
-      ),
-    ),
-    const Tab(
-      icon:  Icon(Icons.people_outlined, color: AppColors.colorBlack),
-    ),
-    const Tab(
-      icon:  Icon(Icons.message_outlined, color: AppColors.colorBlack),
-    ),
-    Tab(
-      icon: Badge(
-        position: BadgePosition.topEnd(top: -20,end: -5),
-        badgeContent: ReusebleText(text: "3",color: Colors.white,size: 16,),
-        child: const Icon(
-          Icons.notifications_outlined,
-          color: AppColors.colorBlack,
-        ),
-      ),
-    ),
-   const Tab(
-      icon:  Icon(Icons.video_library_outlined),
-    ),
-    const Tab(
-      icon: Icon(Icons.shopping_bag_outlined, color: AppColors.colorBlack),
-    ),
-  ];
-
   var pages = [
     const HomePage(),
     const FriendPage(),
@@ -98,10 +69,34 @@ class _MyTabMainState extends State<MyTabMain>
 
   final _scaffolKey = GlobalKey<ScaffoldState>();
 
+   BannerAd? bannerAd;
+   bool isLoadedAd=false;
+
+   _initBannerId(){
+     bannerAd=BannerAd(
+         size: AdSize.banner,
+         adUnitId:"ca-app-pub-9545089282892051/2054710598",
+         listener: BannerAdListener(
+           onAdLoaded: (ad){
+              setState(() {
+                isLoadedAd=true;
+              });
+           },
+           onAdFailedToLoad: (ad,error){
+
+        }
+         ),
+         request: AdRequest()
+     );
+     bannerAd!.load();
+
+   }
+
   @override
   void initState() {
     _tabController =
-        TabController(length: toptabs.length, initialIndex: 5, vsync: this);
+        TabController(length: 6, initialIndex: 0, vsync: this);
+    _initBannerId();
     super.initState();
   }
 
@@ -188,7 +183,15 @@ class _MyTabMainState extends State<MyTabMain>
           child: const MyDrawer(),
         ),
         body: TabBarView(controller: _tabController, children: pages),
+        bottomNavigationBar: isLoadedAd? Container(
+          height: bannerAd!.size.height.toDouble(),
+          width: bannerAd!.size.width.toDouble(),
+          child: AdWidget(ad: bannerAd!,),
+
+        ):SizedBox(),
+
       ),
+
     );
   }
 }

@@ -2,9 +2,45 @@ import 'package:facebook_lite_ui_app/models/post_model.dart';
 import 'package:facebook_lite_ui_app/utils/app_icons.dart';
 import 'package:facebook_lite_ui_app/widgets/reuseble_text.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class Post extends StatelessWidget {
+class Post extends StatefulWidget {
   const Post({Key? key}) : super(key: key);
+
+  @override
+  State<Post> createState() => _PostState();
+}
+
+class _PostState extends State<Post> {
+
+  BannerAd? bannerAd;
+  bool isLoadedAd=false;
+
+  _initBannerId(){
+    bannerAd=BannerAd(
+        size: AdSize.banner,
+        adUnitId:"ca-app-pub-9545089282892051/2054710598",
+        listener: BannerAdListener(
+            onAdLoaded: (ad){
+              setState(() {
+                isLoadedAd=true;
+              });
+            },
+            onAdFailedToLoad: (ad,error){
+
+            }
+        ),
+        request: AdRequest()
+    );
+    bannerAd!.load();
+
+  }
+
+  @override
+  void initState() {
+    _initBannerId();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
